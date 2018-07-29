@@ -1,0 +1,32 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "next build",
+    "test": "jest .",
+    "coverage": "jest --collectCoverageFrom=**.js --coverage ./"
+  },
+  "author": "jorge.e.avila@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "next": "^6.1.1",
+    "ramda": "^0.25.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "request-ip": "2.1.1"
+  },
+  "devDependencies": {
+    "jest": "^23.2.0",
+    "supertest": "^3.1.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/"
+  }
+}
