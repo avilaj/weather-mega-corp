@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import axios from 'axios'
 import {withRouter} from 'next/router';
-import api from '../api/endpoints';
 
 const Cities = (props) => (
   <div>
