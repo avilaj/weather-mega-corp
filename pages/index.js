@@ -5,6 +5,7 @@ import api from '../api/endpoints';
 
 const Cities = (props) => (
   <div>
+    <div>{props.url}</div>
     <h1>{ props.data.city }</h1>
     <h2>{ props.data.country }</h2>
     <ul>
@@ -29,7 +30,6 @@ Cities.getInitialProps = async function(context) {
 
   try {
     baseUrl = getBaseUrl(context.req);
-    // data = await getWeatherByCity(city);
     data = await axios.get(url);
     data = data.data;
   } catch (err) {
@@ -37,6 +37,7 @@ Cities.getInitialProps = async function(context) {
   }
 
   return {
+    url,
     cities: [
         { id: 'avellaneda', name: 'Avellaneda' },
         { id: 'buenos-aires', name: 'Buenos Aires' },

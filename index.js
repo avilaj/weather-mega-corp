@@ -17,7 +17,7 @@ module.exports = app.prepare().then(() => {
   });
 
   server.get('*', (req, res) => handle(req, res));
-  // server.enable('trust proxy');
+  server.enable('trust proxy');
 
   server.listen(port, (err) => {
     if (err) throw err;
