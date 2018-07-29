@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const next = require('next');
 const app = next({ dev: true });
 const handle = app.getRequestHandler();
+var port = process.env.PORT || 8080;
 
 const api = require('./api/index.js');
 
@@ -18,7 +19,7 @@ module.exports = app.prepare().then(() => {
   server.get('*', (req, res) => handle(req, res));
   // server.enable('trust proxy');
 
-  server.listen(3000, (err) => {
+  server.listen(port, (err) => {
     if (err) throw err;
     console.log('Server ready on http://localhost:3000');
   });
