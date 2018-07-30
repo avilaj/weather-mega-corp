@@ -1,7 +1,14 @@
-const { getLocationByIp } = require('./endpoints');
+const { getLocationByIp } = require('../endpoints');
 const requestIp = require('request-ip');
 
-const location = async (req, res, next) => {
+/**
+ * middleware to automatically pass user city when is needed
+ * check is city has been sent as parameter
+ * defaults to check city based on user ip
+ * 
+ * exposes city via locals
+ */
+const city = async (req, res, next) => {
 	try {
 		let city = req.params.city || req.query.city;
 		if (!city) {
@@ -18,4 +25,4 @@ const location = async (req, res, next) => {
 	}
 };
 
-module.exports = location;
+module.exports = city;

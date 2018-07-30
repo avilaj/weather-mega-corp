@@ -1,7 +1,33 @@
+import css from 'styled-jsx/css';
+
+const forecastStyles = css`
+    .forecasting-container {
+        padding-bottom: 2rem;
+    }
+    .forecasting-list {
+        display: flex;
+        max-width: 100vw;
+        overflow: auto;
+    }
+    .date {
+        font-size: .75rem;
+        margin-bottom: 0.25rem;
+    }
+    .sentence {
+        color: #444;
+        padding: 0 1rem;
+    }
+    .forecasting-item {
+        padding: 1rem;
+    }
+`;
+
 export default ({
     forecast
 }) => (
     <div className='forecasting-container'>
+        <style jsx>{forecastStyles}
+        </style>
         <div className='sentence'>Also this week</div>
         <div className='forecasting-list'>
             {
@@ -14,28 +40,5 @@ export default ({
                 ))
             }
         </div>
-        <style jsx>{`
-            .forecasting-container {
-                padding-bottom: 2rem;
-            }
-            .forecasting-list {
-                display: flex;
-                max-width: 100vw;
-                overflow: auto;
-            }
-            .date {
-                font-size: .75rem;
-                margin-bottom: 0.25rem;
-            }
-            .sentence {
-                color: #444;
-                padding: 0 1rem;
-            }
-            .forecasting-item {
-                padding: 1rem;
-            }
-
-        `}
-        </style>
     </div>
 );

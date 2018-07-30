@@ -1,11 +1,6 @@
 import React from 'react'
-
 import Head from 'next/head'
-
-import Link from 'next/link'
-
 import NProgress from 'nprogress'
-
 import Router from 'next/router'
 
 
@@ -20,7 +15,8 @@ Router.onRouteChangeError = () => NProgress.done();
 
 const ProgressBar = () => (
     <Head>
-        <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
+      <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
     </Head>
 );
 

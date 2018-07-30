@@ -1,4 +1,22 @@
-import React from 'react';
+import css from 'styled-jsx/css';
+
+const weatherStyles = css`
+    .container {
+        padding: 1rem;
+    }
+    .city,
+    .weather {
+        font-size: 2rem;
+        color: purple;
+    }
+    .sentence {
+        color: #444;
+    }
+    img {
+        margin: 0;
+        width: 5rem;
+    }
+`;
 
 export default ({
     city,
@@ -7,23 +25,7 @@ export default ({
     icon
 }) => (
     <div className='container'>
-        <style jsx>{`
-            .container {
-                padding: 1rem;
-            }
-            .city,
-            .weather {
-                font-size: 2rem;
-                color: purple;
-            }
-            .sentence {
-                color: #444;
-            }
-            img {
-                margin: 0;
-                width: 5rem;
-            }
-        `}
+        <style jsx>{weatherStyles}
         </style>
         <img src={icon}/>
         <div className='sentence'>Today's weather is</div>
