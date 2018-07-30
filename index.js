@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const next = require('next');
-const app = next({ dev: true });
+const app = next({ dev: !!process.env.DEVELOPMENT });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 8080;
 

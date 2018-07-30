@@ -1,24 +1,16 @@
-import Link from 'next/link'
 import axios from 'axios'
 import {withRouter} from 'next/router';
 import Weather from '../components/Weather';
+import Cities from '../components/Cities';
 
-const Cities = ({ data, cities }) => (
+const WeatherPage = ({ data, cities }) => (
   <div>
     <Weather {...data }/>
-    <ul>
-      {cities.map((city) => (
-        <li key={city.id}>
-          <Link as={`/${city.id}`} href={`/?city=${city.id}`} prefetch>
-            <a>{city.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <Cities { ...{ cities } }/>
   </div>
 )
 
-Cities.getInitialProps = async function(context) {
+WeatherPage.getInitialProps = async function(context) {
   let data = {};
   const city = context.query.city;
   const url = `${context.query.baseUrl}/api/v1/city/${city}`;
@@ -40,4 +32,4 @@ Cities.getInitialProps = async function(context) {
   }
 }
 
-export default withRouter(Cities);
+export default withRouter(WeatherPage);
