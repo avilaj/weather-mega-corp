@@ -3,11 +3,14 @@ import React from 'react';
 export default ({
     city,
     country,
-    weather
+    weather,
+    icon
 }) => (
     <div>
         <h1>{ city }, <span>{country}</span></h1>
-        { weather.description }
-        { weather.temperature }
+        {weather}
+        <br />
+        <img src={icon}/>
+        <br />
     </div>
 );

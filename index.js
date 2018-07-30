@@ -12,6 +12,7 @@ const getBaseUrl = req => `${req.protocol}://${req.get('host')}`;
 module.exports = app.prepare().then(() => {
   const server = express();
   server.use(bodyParser.json());
+  server.enable('trust proxy');
 
   server.use('/api/v1', api);
 
@@ -25,7 +26,6 @@ module.exports = app.prepare().then(() => {
   });
 
   server.get('*', (req, res) => handle(req, res));
-  server.enable('trust proxy');
 
   server.listen(port, (err) => {
     if (err) throw err;

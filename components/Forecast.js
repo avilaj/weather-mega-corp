@@ -1,13 +1,16 @@
 export default ({
-    list
+    forecast
 }) => (
     <div>
+        <strong>Forecasting</strong>
         {
-            list.map(weather => (
-                <div>
-                    { weather.description }
-                    { weather.temperature }
+            forecast.map(day => (
+                <div key={day.date}>
+                    {day.date}
                     <br />
+                    {day.weather}
+                    <br />
+                    <img src={day.icon}/>
                     <br />
                 </div>
             ))

@@ -1,34 +1,51 @@
 const axios = require('axios');
-const { pick, applySpec, map, evolve, path, prop, compose } = require('ramda');
+const { pick, applySpec, map, uniqBy, path, prop, compose, multiply } = require('ramda');
 const { openweathermap_key } = require('../config');
+const format = require('date-fns/fp/format')
+const toDate = require('date-fns/fp/toDate')
+
+const openweatherParams = {
+	units: 'metric',
+	APPID: openweathermap_key
+};
+
 const urls = {
 	ip: 'http://ip-api.com/json',
 	weather: 'https://api.openweathermap.org/data/2.5/weather',
 	forecast: 'https://api.openweathermap.org/data/2.5/forecast'
 };
 
-// formats weather
-const rollupWeather = applySpec({
-	temperature: path(['main', 'temp']),
-	min: path(['main', 'temp_min']),
-	max: path(['main', 'temp_max']),
-	description: path(['weather', '0', 'main'])
+const formatDate = compose(
+	format('EEEE'),
+	toDate,
+	multiply(1000)
+)
+
+const getIconUrl = id => `http://openweathermap.org/img/w/${id}.png`;
+
+const rollupForecast = applySpec({
+	date: compose(formatDate, prop('dt')),
+	weather: path(['weather', 0, 'main']),
+	icon: compose(getIconUrl, path(['weather', 0, 'icon']))
 });
 
 const formatWeather = applySpec({
 	city: prop('name'),
 	country: path(['sys', 'country']),
-	weather: rollupWeather
+	weather: path(['weather', '0', 'main']),
+	icon: compose(getIconUrl, path(['weather', 0, 'icon'])),
+	temperature: path(['main', '0', 'temp'])
 });
 
-const formatForecast = compose(
-	applySpec({
-		city: path(['city', 'name']),
-		country: path(['city', 'country']),
-		list: prop('list')
-	}),
-	evolve({ list: map(rollupWeather) })
-);
+const formatForecast = applySpec({
+	city: path(['city', 'name']),
+	country: path(['city', 'country']),
+	forecast: compose(
+		uniqBy(prop('date')),
+		map(rollupForecast),
+		path(['list'])
+	)
+});
 
 const getLocationByIp = ip =>
 	axios.get(`${urls.ip}/${ip}`).then(
@@ -41,7 +58,7 @@ const getLocationByIp = ip =>
 const getWeatherByCity = city =>
 	axios
 		.get(urls.weather, {
-			params: { units: 'metrics', q: city, APPID: openweathermap_key }
+			params: {  q: city, ...openweatherParams }
 		})
 		.then(
 			compose(
@@ -53,7 +70,7 @@ const getWeatherByCity = city =>
 const getForecastByCity = city =>
 	axios
 		.get(urls.forecast, {
-			params: { units: 'metrics', q: city, APPID: openweathermap_key }
+			params: { q: city, ...openweatherParams }
 		})
 		.then(
 			compose(

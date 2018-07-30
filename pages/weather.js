@@ -15,9 +15,10 @@ const WeatherPage = ({ weather, forecast, cities }) => (
 WeatherPage.getInitialProps = async function(context) {
   let data = {};
   const city = context.query.city;
-  const weatherUrl = `${context.query.baseUrl}/api/v1/city/${city}`;
-  const forecastUrl = `${context.query.baseUrl}/api/v1/forecast/${city}`;
-
+  const baseUrl = context.query.baseUrl || `${location.protocol}//${location.host}`
+  const weatherUrl = `${baseUrl}/api/v1/city/${city}`;
+  const forecastUrl = `${baseUrl}/api/v1/forecast/${city}`;
+  console.log('request');
   try {
     data = await Promise.all([
       axios.get(weatherUrl),
