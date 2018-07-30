@@ -1,28 +1,10 @@
 import React from 'react'
 
-import Head from 'next/head'
-
 import Link from 'next/link'
 
-import NProgress from 'nprogress'
-
-import Router from 'next/router'
-
-
-Router.onRouteChangeStart = (url) => {
-  console.log(`Loading: ${url}`)
-  NProgress.start();
-};
-
-Router.onRouteChangeComplete = () => NProgress.done();
-
-Router.onRouteChangeError = () => NProgress.done();
-
 const Cities = ({ cities }) => (
-    <div>
-        <Head>
-            <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
-        </Head>
+    <div className='cities'>
+        <div className="sentence">Look the weather at one of these cities</div>
         <ul>
             {cities.map((city) => (
                 <li key={city.id}>
@@ -32,6 +14,32 @@ const Cities = ({ cities }) => (
                 </li>
             ))}
         </ul>
+        <style jsx>{`
+            .sentence {
+                color: #444;
+            }
+            .cities {
+                padding: 1rem;
+            }
+            ul {
+                padding: 0;
+            }
+            li {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                display: inline-block;
+            }
+
+            a {
+                color: purple;
+                text-decoration: none;
+            }
+            li+li:before {
+                content: ", "
+            }
+        `}
+        </style>
     </div>
 );
 

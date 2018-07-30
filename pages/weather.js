@@ -1,14 +1,41 @@
 import axios from 'axios'
 import {withRouter} from 'next/router';
+import Head from 'next/head'
 import Weather from '../components/Weather';
 import Cities from '../components/Cities';
 import Forecast from '../components/Forecast';
+import ProgressBar from '../components/ProgressBar';
 
 const WeatherPage = ({ weather, forecast, cities }) => (
   <div>
-    <Weather {...weather }/>
-    <Forecast {...forecast }/>
+    <Head>
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
+    </Head>
+    <ProgressBar />
+    <style global jsx> {`
+      body {
+        margin: 0;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 16px;
+      }
+    `}
+    </style>
     <Cities { ...{ cities } }/>
+    <div className='content'>
+      <Weather {...weather }/>
+    </div>
+    <Forecast {...forecast }/>
+    <style jsx>{`
+      div {
+        display: flex;
+        flex-flow: column;
+        height: 100vh;
+      }
+      .content {
+        flex: 1
+      }
+    `}
+    </style>
   </div>
 )
 
@@ -37,6 +64,8 @@ WeatherPage.getInitialProps = async function(context) {
   return {
     cities: [
         { id: 'bogota', name: 'Bogota' },
+        { id: 'singapur', name: 'Singapur' },
+        { id: 'melbourne', name: 'Melbourne' },
         { id: 'rome', name: 'Rome' },
         { id: 'london', name: 'London' },
     ],
