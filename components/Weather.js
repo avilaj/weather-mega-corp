@@ -8,5 +8,6 @@ export default ({
     <div>
         <h1>{ city }, <span>{country}</span></h1>
         { weather.description }
+        { weather.temperature }
     </div>
 );

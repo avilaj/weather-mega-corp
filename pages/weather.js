@@ -2,10 +2,12 @@ import axios from 'axios'
 import {withRouter} from 'next/router';
 import Weather from '../components/Weather';
 import Cities from '../components/Cities';
+import Forecast from '../components/Forecast';
 
-const WeatherPage = ({ data, cities }) => (
+const WeatherPage = ({ weather, forecast, cities }) => (
   <div>
-    <Weather {...data }/>
+    <Weather {...weather }/>
+    <Forecast {...forecast }/>
     <Cities { ...{ cities } }/>
   </div>
 )
@@ -13,22 +15,31 @@ const WeatherPage = ({ data, cities }) => (
 WeatherPage.getInitialProps = async function(context) {
   let data = {};
   const city = context.query.city;
-  const url = `${context.query.baseUrl}/api/v1/city/${city}`;
+  const weatherUrl = `${context.query.baseUrl}/api/v1/city/${city}`;
+  const forecastUrl = `${context.query.baseUrl}/api/v1/forecast/${city}`;
 
   try {
-    data = await axios.get(url);
-    data = data.data;
+    data = await Promise.all([
+      axios.get(weatherUrl),
+      axios.get(forecastUrl),
+    ]);
+
+    data = {
+      weather: data[0].data,
+      forecast: data[1].data,
+    }
+
   } catch (err) {
     console.log(err.message, url);
   }
 
   return {
     cities: [
-        { id: 'avellaneda', name: 'Avellaneda' },
-        { id: 'buenos-aires', name: 'Buenos Aires' },
+        { id: 'bogota', name: 'Bogota' },
+        { id: 'rome', name: 'Rome' },
         { id: 'london', name: 'London' },
     ],
-    data
+    ...data
   }
 }
 
