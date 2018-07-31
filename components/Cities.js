@@ -1,6 +1,6 @@
 import css from 'styled-jsx/css';
 import Link from 'next/link';
-import { isEmpty, map } from 'ramda';
+import { map } from 'ramda';
 
 const citiesStyles = css`
     .sentence {

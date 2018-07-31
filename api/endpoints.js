@@ -1,12 +1,12 @@
 const axios = require('axios');
 const { pick, applySpec, map, uniqBy, path, prop, compose, multiply } = require('ramda');
-const { openweathermap_key } = require('../config');
+
 const format = require('date-fns/fp/format')
 const toDate = require('date-fns/fp/toDate')
 
 const openweatherParams = {
 	units: 'metric',
-	APPID: openweathermap_key
+	APPID: process.env.APPID
 };
 
 const urls = {
