@@ -1,4 +1,5 @@
 import css from 'styled-jsx/css';
+import { map, unless, compose, isNil } from 'ramda';
 
 const forecastStyles = css`
     .forecasting-container {
@@ -26,18 +27,20 @@ export default ({
     forecast
 }) => (
     <div className='forecasting-container'>
-        <style jsx>{forecastStyles}
-        </style>
+        <style jsx>{forecastStyles}</style>
         <div className='sentence'>Also this week</div>
         <div className='forecasting-list'>
             {
-                forecast.map(day => (
-                    <div key={day.date} className='forecasting-item'>
+                unless(isNil, map((day) => (
+                    <div
+                        key={day.date}
+                        className='forecasting-item'
+                    >
                         <img src={day.icon}/>
                         <div className='date'>{day.date}</div>
                         <div className='weather'>{day.weather}</div>
                     </div>
-                ))
+                )))(forecast)
             }
         </div>
     </div>

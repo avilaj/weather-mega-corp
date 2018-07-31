@@ -1,5 +1,6 @@
 const { getLocationByIp } = require('../endpoints');
-const requestIp = require('request-ip');
+const { getClientIp } = require('request-ip');
+const { either, path, pathOr, pipe, pipeP } = require('ramda');
 
 /**
  * middleware to automatically pass user city when is needed
@@ -8,17 +9,36 @@ const requestIp = require('request-ip');
  * 
  * exposes city via locals
  */
+const getCity = either(
+	path(['params', 'city']),
+	path(['query', 'city'])
+);
+
+const getIp = either(
+	path(['query', 'ip']),
+	getClientIp,
+);
+
+/**
+ * promised pipe
+ */
+const resolveCityByIp = pipeP(
+	pipe(
+		getIp,
+		getLocationByIp
+	),
+	pathOr('', ['city'])
+);
+
 const city = async (req, res, next) => {
 	try {
-		let city = req.params.city || req.query.city;
+		let city = getCity(req);
 		if (!city) {
 			// use ?ip=xxx.xxx.xxx to set your address if testing locally
-			const ip = req.query.ip || requestIp.getClientIp(req);
-			const result = await getLocationByIp(ip);
-			city = result.city;
+			city = await resolveCityByIp(req);
 		}
 
-		res.locals.city = (city || '').replace('-', ' ');
+		res.locals.city = city.replace('-', ' ');
 		next();
 	} catch (err) {
 		next(err);

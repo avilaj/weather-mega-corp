@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "heroku-postbuild": "next build",
-    "test": "jest .",
-    "coverage": "jest --collectCoverageFrom=**.js --coverage ./"
+    "test": "jest",
+    "coverage": "jest --collectCoverageFrom=**/**.js --coverage ./"
   },
   "author": "jorge.e.avila@gmail.com",
   "license": "ISC",
@@ -24,7 +24,9 @@
     "request-ip": "2.1.1"
   },
   "devDependencies": {
+    "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^23.2.0",
+    "react-test-renderer": "^16.4.1",
     "supertest": "^3.1.0"
   },
   "jest": {

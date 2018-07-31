@@ -5,7 +5,9 @@ const weather = require('./weather');
 const forecast = require('./forecast');
 const ipBasedCity = require('./middlewares/city');
 const errors = require('./middlewares/errors');
+const bodyParser = require('body-parser');
 
+router.use(bodyParser.json());
 router.use(errors);
 
 router.get('/location', ipBasedCity, location);

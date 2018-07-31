@@ -1,5 +1,6 @@
 const requestIp = require('request-ip');
-const location = async (req, res, next) => {
+
+const location = (req, res, next) => {
 	try {
     const results = {
       city: res.locals.city,

@@ -1,5 +1,6 @@
 import css from 'styled-jsx/css';
 import Link from 'next/link';
+import { isEmpty, map } from 'ramda';
 
 const citiesStyles = css`
     .sentence {
@@ -26,21 +27,27 @@ const citiesStyles = css`
         content: ", "
     }
 `;
-
 const Cities = ({ cities }) => (
     <div className='cities'>
-        <div className="sentence">Look the weather at one of these cities</div>
+        <div className="sentence">
+            { cities && `Look the weather at one of these cities` }
+            { !cities && `No cities available.` }
+        </div>
         <ul>
-            {cities.map((city) => (
-                <li key={city.id}>
-                    <Link as={`/${city.id}`} href={`/weather?city=${city.id}`}>
-                        <a>{city.name}</a>
-                    </Link>
-                </li>
-            ))}
+            {
+                cities && map(city => (
+                    <li key={city.id}>
+                        <Link
+                            as={`/${city.id}`}
+                            href={`/weather?city=${city.id}`}
+                        >
+                            <a>{city.name}</a>
+                        </Link>
+                    </li>
+                ), cities)
+            }
         </ul>
-        <style jsx>{citiesStyles}
-        </style>
+        <style jsx>{citiesStyles}</style>
     </div>
 );
 

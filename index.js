@@ -10,7 +10,7 @@ const cityResolver = require('./api/middlewares/city');
 
 module.exports = app.prepare().then(() => {
   const server = express();
-  server.use(bodyParser.json());
+ 
   server.enable('trust proxy');
 
   server.use('/api/v1', api);
@@ -24,7 +24,9 @@ module.exports = app.prepare().then(() => {
   });
 
   server.get('*', (req, res) => handle(req, res));
-
+  server.on('error', (err) => {
+    console.error(err);
+  });
   server.listen(port, (err) => {
     if (err) throw err;
     console.log('Server ready on http://localhost:3000');
