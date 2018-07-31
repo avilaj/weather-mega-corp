@@ -21,3 +21,15 @@ Redux was not contemplated as it didn't fit the use case for it.
 - Loading indicator
 
 We used snapshots testing for presentational components.
+
+## supertest
+- /api/api.test.js
+## Tested
+- /api/middlewares/city.js
+- /api/weather.js
+- /components/Cities.js
+## Todo
+- add environment parameters
+- add more coverage
+- improve error handling
+- add caching
