@@ -1,15 +1,15 @@
-const requestIp = require('request-ip');
+const requestIp = require('request-ip')
 
 const location = (req, res, next) => {
-	try {
+  try {
     const results = {
       city: res.locals.city,
-      ip: requestIp.getClientIp(req),
-    };
-		res.json(results);
-	} catch (err) {
-		next(err);
-	}
-};
+      ip: requestIp.getClientIp(req)
+    }
+    res.json(results)
+  } catch (err) {
+    next(err)
+  }
+}
 
-module.exports = location;
+module.exports = location

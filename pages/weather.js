@@ -1,10 +1,12 @@
+/* global location */
+
 import axios from 'axios'
-import {withRouter} from 'next/router';
-import css from 'styled-jsx/css';
-import Weather from '../components/Weather';
-import Cities from '../components/Cities';
-import Forecast from '../components/Forecast';
-import ProgressBar from '../components/ProgressBar';
+import {withRouter} from 'next/router'
+import css from 'styled-jsx/css'
+import Weather from '../components/Weather'
+import Cities from '../components/Cities'
+import Forecast from '../components/Forecast'
+import ProgressBar from '../components/ProgressBar'
 
 const globalStyles = css`
   body {
@@ -12,7 +14,7 @@ const globalStyles = css`
     font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
   }
-`;
+`
 
 const weatherPageStyles = css`
   div {
@@ -23,18 +25,18 @@ const weatherPageStyles = css`
   .content {
     flex: 1
   }
-`;
+`
 
 const WeatherPage = ({ weather, forecast, cities }) => (
   <div>
     <style global jsx>{globalStyles}</style>
     <style jsx>{weatherPageStyles}</style>
     <ProgressBar />
-    <Cities { ...{ cities } }/>
+    <Cities {...{ cities }} />
     <div className='content'>
-      <Weather {...weather }/>
+      <Weather {...weather} />
     </div>
-    <Forecast {...forecast }/>
+    <Forecast {...forecast} />
   </div>
 )
 /**
@@ -42,27 +44,26 @@ const WeatherPage = ({ weather, forecast, cities }) => (
  * added a small check for properly setting api url.
  */
 
-WeatherPage.getInitialProps = async function(context) {
-  let data = {};
-  const city = context.query.city;
-  const { req } = context;
+WeatherPage.getInitialProps = async function (context) {
+  let data = {}
+  const city = context.query.city
+  const { req } = context
   const baseUrl = req ? `${req.protocol}://${req.get('host')}` : `${location.protocol}//${location.host}`
-  const weatherUrl = `${baseUrl}/api/v1/city/${city}`;
-  const forecastUrl = `${baseUrl}/api/v1/forecast/${city}`;
+  const weatherUrl = `${baseUrl}/api/v1/city/${city}`
+  const forecastUrl = `${baseUrl}/api/v1/forecast/${city}`
 
   try {
     data = await Promise.all([
       axios.get(weatherUrl),
-      axios.get(forecastUrl),
-    ]);
+      axios.get(forecastUrl)
+    ])
 
     data = {
       weather: data[0].data,
-      forecast: data[1].data,
+      forecast: data[1].data
     }
-
   } catch (err) {
-    console.log(err.message, context.url);
+    console.log(err.message, context.url)
   }
 
   return {
@@ -71,10 +72,10 @@ WeatherPage.getInitialProps = async function(context) {
         { id: 'singapur', name: 'Singapur' },
         { id: 'melbourne', name: 'Melbourne' },
         { id: 'rome', name: 'Rome' },
-        { id: 'london', name: 'London' },
+        { id: 'london', name: 'London' }
     ],
     ...data
   }
 }
 
-export default withRouter(WeatherPage);
+export default withRouter(WeatherPage)
