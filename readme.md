@@ -36,3 +36,11 @@ We used snapshots testing for presentational components.
 - add more coverage
 - improve error handling
 - add caching
+
+
+## Running tests
+Please add your openweather api key
+```
+  APPID=xxxxxxxx SELF_URL=http://localhost:8080 DEVELOPMENT
+=true npm test
+```
