@@ -17,23 +17,24 @@ const globalStyles = css`
 `
 
 const weatherPageStyles = css`
-  div {
+  .container {
     display: flex;
     flex-flow: column;
-    height: 100vh;
+    max-width: 500px;
+    margin: auto;
   }
-  .content {
+  .weather-content {
     flex: 1
   }
 `
 
 const WeatherPage = ({ weather, forecast, cities }) => (
-  <div>
+  <div className='container'>
     <style global jsx>{globalStyles}</style>
     <style jsx>{weatherPageStyles}</style>
     <ProgressBar />
     <Cities {...{ cities }} />
-    <div className='content'>
+    <div className='weather-content'>
       <Weather {...weather} />
     </div>
     <Forecast {...forecast} />

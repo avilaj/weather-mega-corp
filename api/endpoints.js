@@ -21,20 +21,18 @@ const formatDate = compose(
   multiply(1000)
 )
 
-const getIconUrl = id => `https://openweathermap.org/img/w/${id}.png`
-
 const rollupForecast = applySpec({
   date: compose(formatDate, prop('dt')),
   weather: path(['weather', 0, 'main']),
-  icon: compose(getIconUrl, path(['weather', 0, 'icon']))
+  icon: path(['weather', 0, 'id'])
 })
 
 const formatWeather = applySpec({
   city: prop('name'),
   country: path(['sys', 'country']),
   weather: path(['weather', '0', 'main']),
-  icon: compose(getIconUrl, path(['weather', 0, 'icon'])),
-  temperature: path(['main', '0', 'temp'])
+  icon: path(['weather', 0, 'id']),
+  temperature: path(['main', 'temp'])
 })
 
 const formatForecast = applySpec({

@@ -1,4 +1,5 @@
 import css from 'styled-jsx/css'
+import Icon from './Icon';
 
 const weatherStyles = css`
   .container {
@@ -6,15 +7,22 @@ const weatherStyles = css`
   }
   .city,
   .weather {
-    font-size: 2rem;
-    color: purple;
+
   }
   .sentence {
     color: #444;
   }
-  img {
+  .icon {
     margin: 0;
-    width: 5rem;
+    font-size: 5rem;
+  }
+  .temperature {
+    font-size: 5rem;
+  }
+  .weather-display {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
   }
 `
 
@@ -22,14 +30,23 @@ export default ({
   city,
   country,
   weather,
+  temperature,
   icon
 }) => (
   <div className='container'>
     <style jsx>{weatherStyles}</style>
-    <img src={icon} />
     <div className='sentence'>Today's weather is</div>
-    <div className='weather'>{weather}</div>
-    <div className='sentence'>for</div>
-    <div className='city'>{ city }, <small>{country}</small></div>
+    <div className='weather-display'>
+      <div className='icon'>
+        <Icon code={icon} />
+      </div>
+      <div className='temperature'>
+        {temperature}
+        <super>°</super>
+      </div>
+    </div>
+    <span className='weather'>{weather}</span> {' '}
+    <span className='sentence'>for</span> {' '}
+    <span className='city'>{ city }, <small>{country}</small></span>
   </div>
 )

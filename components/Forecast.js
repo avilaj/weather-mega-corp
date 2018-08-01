@@ -1,5 +1,6 @@
 import css from 'styled-jsx/css'
 import { map, unless, isNil } from 'ramda'
+import Icon from './Icon'
 
 const forecastStyles = css`
   .forecasting-container {
@@ -9,6 +10,7 @@ const forecastStyles = css`
     display: flex;
     max-width: 100vw;
     overflow: auto;
+    text-align: center;
   }
   .date {
     font-size: .75rem;
@@ -20,6 +22,9 @@ const forecastStyles = css`
   }
   .forecasting-item {
     padding: 1rem;
+  }
+  .icon {
+    font-size: 2rem;
   }
 `
 
@@ -36,7 +41,9 @@ export default ({
             key={day.date}
             className='forecasting-item'
           >
-            <img src={day.icon} />
+            <div className='icon'>
+              <Icon code={day.icon} />
+            </div>
             <div className='date'>{day.date}</div>
             <div className='weather'>{day.weather}</div>
           </div>
