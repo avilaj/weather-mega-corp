@@ -7,6 +7,7 @@ import Weather from '../components/Weather'
 import Cities from '../components/Cities'
 import Forecast from '../components/Forecast'
 import ProgressBar from '../components/ProgressBar'
+import Search from '../components/Search'
 
 const globalStyles = css`
   body {
@@ -33,6 +34,7 @@ const WeatherPage = ({ weather, forecast, cities }) => (
     <style global jsx>{globalStyles}</style>
     <style jsx>{weatherPageStyles}</style>
     <ProgressBar />
+    <Search />
     <Cities {...{ cities }} />
     <div className='weather-content'>
       <Weather {...weather} />
