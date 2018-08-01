@@ -3,14 +3,14 @@ let request = require('supertest')
 const api = require('./index.js')
 const express = require('express')
 
-describe.skip('Api V1', () => {
+describe('Api V1', () => {
   const server = express()
-
+  server.enable('trust proxy')
   server.use('/api/v1', api)
   const job = server.listen(3001, (err) => {
     if (err) throw err
   })
-//   let app // TODO: Remove unused code.
+
   beforeAll(() => {
     console.log('runs')
     request = request(server)
@@ -32,9 +32,13 @@ describe.skip('Api V1', () => {
             .set('Accept', 'application/json')
             .set('X-Forwarded-For', '190.194.12.72')
 
-    expect(response.body.city).toEqual('Avellaneda')
-    expect(response.body.country).toEqual('AR')
-    expect(response.body.weather).toEqual(expect.any(String))
+    expect(response.body).toEqual({
+        city: 'Avellaneda',
+        country: 'AR',
+        icon: expect.any(Number),
+        temperature: expect.any(Number),
+        weather: expect.any(String)
+    })
   })
 
   it('should return weather for london', async () => {

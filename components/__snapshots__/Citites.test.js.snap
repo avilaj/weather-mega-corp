@@ -2,21 +2,21 @@
 
 exports[`<Cities /> renders cities when they are provided 1`] = `
 <div
-  className="jsx-3008306360 cities"
+  className="jsx-2288353087 cities"
 >
   <div
-    className="jsx-3008306360 sentence"
+    className="jsx-2288353087 sentence"
   >
     Look the weather at one of these cities
   </div>
   <ul
-    className="jsx-3008306360"
+    className="jsx-2288353087"
   >
     <li
-      className="jsx-3008306360"
+      className="jsx-2288353087"
     >
       <a
-        className="jsx-3008306360"
+        className="jsx-2288353087"
         href="/china"
         onClick={[Function]}
       >
@@ -29,15 +29,15 @@ exports[`<Cities /> renders cities when they are provided 1`] = `
 
 exports[`<Cities /> renders empty when cities are not provided 1`] = `
 <div
-  className="jsx-3008306360 cities"
+  className="jsx-2288353087 cities"
 >
   <div
-    className="jsx-3008306360 sentence"
+    className="jsx-2288353087 sentence"
   >
     No cities available.
   </div>
   <ul
-    className="jsx-3008306360"
+    className="jsx-2288353087"
   />
 </div>
 `;
